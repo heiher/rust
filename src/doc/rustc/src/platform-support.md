@@ -155,6 +155,7 @@ target | std | notes
 `i686-unknown-freebsd` | ✓ | 32-bit FreeBSD
 `i686-unknown-linux-musl` | ✓ | 32-bit Linux with MUSL
 [`i686-unknown-uefi`](platform-support/unknown-uefi.md) | * | 32-bit UEFI
+[`loongarch64-unknown-linux-musl`](platform-support/loongarch-linux.md) | ? |  | LoongArch64 Linux (LP64D ABI)
 `mips-unknown-linux-musl` | ✓ | MIPS Linux with MUSL
 `mips64-unknown-linux-muslabi64` | ✓ | MIPS64 Linux, n64 ABI, MUSL
 `mips64el-unknown-linux-muslabi64` | ✓ | MIPS64 (LE) Linux, n64 ABI, MUSL
