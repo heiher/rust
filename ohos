@@ -1,0 +1,78 @@
+#!/bin/bash
+
+set -e
+
+apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+  automake \
+  bison \
+  bzip2 \
+  ca-certificates \
+  cmake \
+  curl \
+  file \
+  flex \
+  g++ \
+  gawk \
+  gdb \
+  git \
+  gperf \
+  help2man \
+  libncurses-dev \
+  libssl-dev \
+  libtool-bin \
+  make \
+  ninja-build \
+  patch \
+  pkg-config \
+  python3 \
+  rsync \
+  sudo \
+  texinfo \
+  unzip \
+  wget \
+  xz-utils
+
+mkdir -p /opt/ohos-sdk/native
+
+URL=https://github.com/Kitware/CMake/releases/download/v3.20.0/cmake-3.20.0-linux-x86_64.tar.gz
+curl -L $URL | tar xz -C /opt/
+
+URL=https://hev.cc/sftp/ohos/clang-dev-linux-x86_64.tar.bz2
+curl $URL | tar xj -C /opt/ohos-sdk/native/
+
+URL=https://hev.cc/sftp/ohos/ohos-sysroot-dev.tar.bz2
+curl $URL | tar xj -C /opt/ohos-sdk/native/
+
+export AR_aarch64_unknown_linux_ohos=/opt/ohos-sdk/native/llvm/bin/llvm-ar
+export CC_aarch64_unknown_linux_ohos=`pwd`/src/ci/docker/scripts/ohos/aarch64-unknown-linux-ohos-clang.sh
+export CXX_aarch64_unknown_linux_ohos=`pwd`/src/ci/docker/scripts/ohos/aarch64-unknown-linux-ohos-clang++.sh
+export AR_loongarch64_unknown_linux_ohos=/opt/ohos-sdk/native/llvm/bin/llvm-ar
+export CC_loongarch64_unknown_linux_ohos=`pwd`/src/ci/docker/scripts/ohos/loongarch64-unknown-linux-ohos-clang.sh
+export CXX_loongarch64_unknown_linux_ohos=`pwd`/src/ci/docker/scripts/ohos/loongarch64-unknown-linux-ohos-clang++.sh
+export AR_armv7_unknown_linux_ohos=/opt/ohos-sdk/native/llvm/bin/llvm-ar
+export CC_armv7_unknown_linux_ohos=`pwd`/src/ci/docker/scripts/ohos/armv7-unknown-linux-ohos-clang.sh
+export CXX_armv7_unknown_linux_ohos=`pwd`/src/ci/docker/scripts/ohos/armv7-unknown-linux-ohos-clang++.sh
+export AR_x86_64_unknown_linux_ohos=/opt/ohos-sdk/native/llvm/bin/llvm-ar
+export CC_x86_64_unknown_linux_ohos=`pwd`/src/ci/docker/scripts/ohos/x86_64-unknown-linux-ohos-clang.sh
+export CXX_x86_64_unknown_linux_ohos=`pwd`/src/ci/docker/scripts/ohos/x86_64-unknown-linux-ohos-clang++.sh
+export PATH=/opt/cmake-3.20.0-linux-x86_64/bin:/opt/rust-nightly/bin:${PATH}
+
+rm -rf config.toml build
+./configure --enable-vendor --enable-cargo-native-static --release-channel=nightly --enable-extended --enable-full-tools --enable-profiler --disable-docs
+./x.py dist
+tar xf build/dist/rust-nightly-x86_64-unknown-linux-gnu.tar.xz
+cd rust-nightly-x86_64-unknown-linux-gnu
+./install.sh --prefix=/opt/rust-nightly
+cd ..
+rm -rf rust-nightly-x86_64-unknown-linux-gnu
+
+rm -rf config.toml build
+./configure --enable-local-rust --enable-vendor --enable-cargo-native-static --release-channel=nightly --enable-extended --enable-full-tools --enable-profiler --disable-docs
+./x.py dist
+mkdir -p rust-1.72.0-ohos
+cp build/dist/*.tar.xz rust-1.72.0-ohos
+
+rm -rf config.toml build
+./configure --enable-local-rust --enable-vendor --release-channel=nightly --enable-profiler --disable-docs
+./x.py dist --host='' --target aarch64-unknown-linux-ohos,armv7-unknown-linux-ohos,loongarch64-unknown-linux-ohos,x86_64-unknown-linux-ohos
+cp build/dist/*.tar.xz rust-1.72.0-ohos
