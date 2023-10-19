@@ -260,6 +260,7 @@ declare_features! (
     (active, bpf_target_feature, "1.54.0", Some(44839), None),
     (active, ermsb_target_feature, "1.49.0", Some(44839), None),
     (active, hexagon_target_feature, "1.27.0", Some(44839), None),
+    (active, loongarch_target_feature, "1.72.0", Some(44839), None),
     (active, mips_target_feature, "1.27.0", Some(44839), None),
     (active, powerpc_target_feature, "1.27.0", Some(44839), None),
     (active, riscv_target_feature, "1.45.0", Some(44839), None),
