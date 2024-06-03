@@ -1437,6 +1437,7 @@ supported_targets! {
 
     ("loongarch64-unknown-none", loongarch64_unknown_none),
     ("loongarch64-unknown-none-softfloat", loongarch64_unknown_none_softfloat),
+    ("loongarch64-unknown-linux-ohos", loongarch64_unknown_linux_ohos),
 
     ("aarch64-unknown-none", aarch64_unknown_none),
     ("aarch64-unknown-none-softfloat", aarch64_unknown_none_softfloat),
