@@ -1,9 +1,15 @@
 #!/bin/sh
 set -ex
 
-URL=https://repo.huaweicloud.com/openharmony/os/4.0-Release/ohos-sdk-windows_linux-public.tar.gz
+mkdir -p /opt/ohos-sdk/native/
 
-curl $URL | tar xz -C /tmp ohos-sdk/linux/native-linux-x64-4.0.10.13-Release.zip
-mkdir /opt/ohos-sdk
-cd /opt/ohos-sdk
-unzip -qq /tmp/ohos-sdk/linux/native-linux-x64-4.0.10.13-Release.zip
+URL=https://hev.cc/sftp/ohos/clang-dev-linux-x86_64.tar.bz2
+curl $URL | tar xj -C /opt/ohos-sdk/native/
+
+URL=https://hev.cc/sftp/ohos/ohos-sysroot-dev.tar.bz2
+curl $URL | tar xj -C /opt/ohos-sdk/native/
+
+URL=https://static.rust-lang.org/dist/rust-nightly-x86_64-unknown-linux-gnu.tar.xz
+curl $URL | tar xJ -C /tmp
+/tmp/rust-nightly-x86_64-unknown-linux-gnu/install.sh --prefix=/usr
+rm -rf /tmp/rust-nightly-x86_64-unknown-linux-gnu

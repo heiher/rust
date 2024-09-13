@@ -2,6 +2,7 @@ FROM ubuntu:23.04
 
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install -y --no-install-recommends \
+    bzip2 \
     g++ \
     make \
     ninja-build \
@@ -55,6 +56,7 @@ ENV \
     CXX_x86_64_unknown_linux_ohos=/usr/local/bin/x86_64-unknown-linux-ohos-clang++.sh
 
 ENV RUST_CONFIGURE_ARGS \
+    --enable-local-rust \
     --enable-profiler \
     --disable-docs
 
