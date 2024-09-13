@@ -4,11 +4,8 @@
 
 * aarch64-unknown-linux-ohos
 * armv7-unknown-linux-ohos
-* x86_64-unknown-linux-ohos
-
-**Tier: 3**
-
 * loongarch64-unknown-linux-ohos
+* x86_64-unknown-linux-ohos
 
 Targets for the [OpenHarmony](https://gitee.com/openharmony/docs/) operating
 system.
@@ -80,6 +77,28 @@ exec /path/to/ohos-sdk/linux/native/llvm/bin/clang++ \
   "$@"
 ```
 
+`loongarch64-unknown-linux-ohos-clang.sh`
+
+```sh
+#!/bin/sh
+exec /path/to/ohos-sdk/linux/native/llvm/bin/clang \
+  -target loongarch64-linux-ohos \
+  --sysroot=/path/to/ohos-sdk/linux/native/sysroot \
+  -D__MUSL__ \
+  "$@"
+```
+
+`loongarch64-unknown-linux-ohos-clang++.sh`
+
+```sh
+#!/bin/sh
+exec /path/to/ohos-sdk/linux/native/llvm/bin/clang++ \
+  -target loongarch64-linux-ohos \
+  --sysroot=/path/to/ohos-sdk/linux/native/sysroot \
+  -D__MUSL__ \
+  "$@"
+```
+
 `x86_64-unknown-linux-ohos-clang.sh`
 
 ```sh
@@ -110,6 +129,7 @@ Rustup ships pre-compiled artifacts for this target, which you can install with:
 ```sh
 rustup target add aarch64-unknown-linux-ohos
 rustup target add armv7-unknown-linux-ohos
+rustup target add loongarch64-unknown-linux-ohos
 rustup target add x86_64-unknown-linux-ohos
 ```
 
@@ -122,6 +142,10 @@ linker = "/path/to/aarch64-unknown-linux-ohos-clang.sh"
 [target.armv7-unknown-linux-ohos]
 ar = "/path/to/ohos-sdk/linux/native/llvm/bin/llvm-ar"
 linker = "/path/to/armv7-unknown-linux-ohos-clang.sh"
+
+[target.loongarch64-unknown-linux-ohos]
+ar = "/path/to/ohos-sdk/linux/native/llvm/bin/llvm-ar"
+linker = "/path/to/loongarch64-unknown-linux-ohos-clang.sh"
 
 [target.x86_64-unknown-linux-ohos]
 ar = "/path/to/ohos-sdk/linux/native/llvm/bin/llvm-ar"
@@ -154,6 +178,13 @@ cxx = "/path/to/armv7-unknown-linux-ohos-clang++.sh"
 ar = "/path/to/ohos-sdk/linux/native/llvm/bin/llvm-ar"
 ranlib = "/path/to/ohos-sdk/linux/native/llvm/bin/llvm-ranlib"
 linker  = "/path/to/armv7-unknown-linux-ohos-clang.sh"
+
+[target.loongarch64-unknown-linux-ohos]
+cc = "/path/to/loongarch64-unknown-linux-ohos-clang.sh"
+cxx = "/path/to/loongarch64-unknown-linux-ohos-clang++.sh"
+ar = "/path/to/ohos-sdk/linux/native/llvm/bin/llvm-ar"
+ranlib = "/path/to/ohos-sdk/linux/native/llvm/bin/llvm-ranlib"
+linker  = "/path/to/loongarch64-unknown-linux-ohos-clang.sh"
 
 [target.x86_64-unknown-linux-ohos]
 cc = "/path/to/x86_64-unknown-linux-ohos-clang.sh"

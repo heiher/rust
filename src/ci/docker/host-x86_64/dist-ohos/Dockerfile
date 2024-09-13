@@ -26,12 +26,15 @@ COPY scripts/ohos/aarch64-unknown-linux-ohos-clang.sh /usr/local/bin/
 COPY scripts/ohos/aarch64-unknown-linux-ohos-clang++.sh /usr/local/bin/
 COPY scripts/ohos/armv7-unknown-linux-ohos-clang.sh /usr/local/bin/
 COPY scripts/ohos/armv7-unknown-linux-ohos-clang++.sh /usr/local/bin/
+COPY scripts/ohos/loongarch64-unknown-linux-ohos-clang.sh /usr/local/bin/
+COPY scripts/ohos/loongarch64-unknown-linux-ohos-clang++.sh /usr/local/bin/
 COPY scripts/ohos/x86_64-unknown-linux-ohos-clang.sh /usr/local/bin/
 COPY scripts/ohos/x86_64-unknown-linux-ohos-clang++.sh /usr/local/bin/
 
 # env
 ENV TARGETS=aarch64-unknown-linux-ohos
 ENV TARGETS=$TARGETS,armv7-unknown-linux-ohos
+ENV TARGETS=$TARGETS,loongarch64-unknown-linux-ohos
 ENV TARGETS=$TARGETS,x86_64-unknown-linux-ohos
 
 ENV \
@@ -42,6 +45,10 @@ ENV \
     CC_armv7_unknown_linux_ohos=/usr/local/bin/armv7-unknown-linux-ohos-clang.sh \
     AR_armv7_unknown_linux_ohos=/opt/ohos-sdk/native/llvm/bin/llvm-ar \
     CXX_armv7_unknown_linux_ohos=/usr/local/bin/armv7-unknown-linux-ohos-clang++.sh
+ENV \
+    CC_loongarch64_unknown_linux_ohos=/usr/local/bin/loongarch64-unknown-linux-ohos-clang.sh \
+    AR_loongarch64_unknown_linux_ohos=/opt/ohos-sdk/native/llvm/bin/llvm-ar \
+    CXX_loongarch64_unknown_linux_ohos=/usr/local/bin/loongarch64-unknown-linux-ohos-clang++.sh
 ENV \
     CC_x86_64_unknown_linux_ohos=/usr/local/bin/x86_64-unknown-linux-ohos-clang.sh \
     AR_x86_64_unknown_linux_ohos=/opt/ohos-sdk/native/llvm/bin/llvm-ar \
