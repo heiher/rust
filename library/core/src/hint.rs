@@ -300,6 +300,14 @@ pub fn spin_loop() {
         // with support for the v6 feature.
         unsafe { crate::arch::arm::__yield() };
     }
+
+    #[cfg(target_arch = "loongarch64")]
+    {
+        // SAFETY: the `cfg` attr ensures that we only execute this on loongarch64 targets.
+        unsafe {
+            crate::arch::loongarch64::ibar::<0>();
+        }
+    }
 }
 
 /// An identity function that *__hints__* to the compiler to be maximally pessimistic about what
