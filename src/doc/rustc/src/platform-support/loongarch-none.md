@@ -2,10 +2,12 @@
 
 **Tier: 2**
 
-Freestanding/bare-metal LoongArch64 binaries in ELF format: firmware, kernels, etc.
+Freestanding/bare-metal LoongArch binaries in ELF format: firmware, kernels, etc.
 
 | Target | Description |
 |--------|-------------|
+| `loongarch32-unknown-none` | LoongArch 32-bit, ILP32D ABI (freestanding, hard-float) |
+| `loongarch32-unknown-none-softfloat` | LoongArch 32-bit, ILP32S ABI (freestanding, soft-float) |
 | `loongarch64-unknown-none` | LoongArch 64-bit, LP64D ABI (freestanding, hard-float) |
 | `loongarch64-unknown-none-softfloat` | LoongArch 64-bit, LP64S ABI (freestanding, soft-float) |
 
@@ -29,13 +31,13 @@ additional CPU features via the `-C target-feature=` codegen options to rustc, o
 via the `#[target_feature]` mechanism within Rust code.
 
 By default, code generated with the soft-float target should run on any
-LoongArch64 hardware, with the hard-float target additionally requiring an FPU;
+LoongArch hardware, with the hard-float target additionally requiring an FPU;
 enabling additional target features may raise this baseline.
 
 Code generated with the targets will use the `medium` code model by default.
 You can change this using the `-C code-model=` option to rustc.
 
-On `loongarch64-unknown-none*`, `extern "C"` uses the [architecture's standard calling convention][lapcs].
+On `loongarch*-unknown-none*`, `extern "C"` uses the [architecture's standard calling convention][lapcs].
 
 [lapcs]: https://github.com/loongson/la-abi-specs/blob/release/lapcs.adoc
 
