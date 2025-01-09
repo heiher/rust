@@ -1,8 +1,15 @@
 //@ add-core-stubs
+//@ revisions: loongarch32 loongarch64
+
 //@ assembly-output: emit-asm
-//@ compile-flags: --target loongarch64-unknown-linux-gnu
+
+//@[loongarch32] compile-flags: --target loongarch32-unknown-none
+//@[loongarch32] needs-llvm-components: loongarch
+
+//@[loongarch64] compile-flags: --target loongarch64-unknown-none
+//@[loongarch64] needs-llvm-components: loongarch
+
 //@ compile-flags: -Zmerge-functions=disabled
-//@ needs-llvm-components: loongarch
 
 #![feature(no_core)]
 #![crate_type = "rlib"]
@@ -22,7 +29,7 @@ extern "C" {
 // CHECK-LABEL: sym_fn:
 // CHECK: #APP
 // CHECK: pcalau12i $t0, %got_pc_hi20(extern_func)
-// CHECK: ld.d $t0, $t0, %got_pc_lo12(extern_func)
+// CHECK: ld.${{[dw]}} $t0, $t0, %got_pc_lo12(extern_func)
 // CHECK: #NO_APP
 #[no_mangle]
 pub unsafe fn sym_fn() {
