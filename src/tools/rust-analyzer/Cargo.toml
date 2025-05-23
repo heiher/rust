@@ -120,7 +120,7 @@ libloading = "0.8.6"
 memmap2 = "0.9.5"
 nohash-hasher = "0.2.0"
 oorandom = "11.1.5"
-object = { version = "0.36.7", default-features = false, features = [
+object = { git = "https://github.com/gimli-rs/object", rev = "75848360848626eb46e04d41f6d44f7c802a1462", default-features = false, features = [
   "std",
   "read_core",
   "elf",

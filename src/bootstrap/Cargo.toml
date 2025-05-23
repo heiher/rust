@@ -42,7 +42,7 @@ fd-lock = "4.0"
 home = "0.5"
 ignore = "0.4"
 libc = "0.2"
-object = { version = "0.36.3", default-features = false, features = ["archive", "coff", "read_core", "std", "unaligned"] }
+object = { git = "https://github.com/gimli-rs/object", rev = "75848360848626eb46e04d41f6d44f7c802a1462", default-features = false, features = ["archive", "coff", "read_core", "std", "unaligned"] }
 opener = "0.5"
 semver = "1.0"
 serde = "1.0"
