@@ -996,7 +996,10 @@ impl<'b> Pattern for &'b str {
                     return haystack.as_bytes().contains(&self.as_bytes()[0]);
                 }
 
-                #[cfg(all(target_arch = "x86_64", target_feature = "sse2"))]
+                #[cfg(any(
+                    all(target_arch = "x86_64", target_feature = "sse2"),
+                    all(target_arch = "loongarch64", target_feature = "lsx")
+                ))]
                 if self.len() <= 32 {
                     if let Some(result) = simd_contains(self, haystack) {
                         return result;
@@ -1774,7 +1777,10 @@ impl TwoWayStrategy for RejectAndMatch {
 /// a naive O(n*m) search so this implementation should not be called on larger needles.
 ///
 /// [0]: http://0x80.pl/articles/simd-strfind.html#sse-avx2
-#[cfg(all(target_arch = "x86_64", target_feature = "sse2"))]
+#[cfg(any(
+    all(target_arch = "x86_64", target_feature = "sse2"),
+    all(target_arch = "loongarch64", target_feature = "lsx")
+))]
 #[inline]
 fn simd_contains(needle: &str, haystack: &str) -> Option<bool> {
     let needle = needle.as_bytes();
@@ -1906,7 +1912,10 @@ fn simd_contains(needle: &str, haystack: &str) -> Option<bool> {
 /// # Safety
 ///
 /// Both slices must have the same length.
-#[cfg(all(target_arch = "x86_64", target_feature = "sse2"))] // only called on x86
+#[cfg(any(
+    all(target_arch = "x86_64", target_feature = "sse2"),
+    all(target_arch = "loongarch64", target_feature = "lsx")
+))]
 #[inline]
 unsafe fn small_slice_eq(x: &[u8], y: &[u8]) -> bool {
     debug_assert_eq!(x.len(), y.len());
