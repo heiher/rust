@@ -996,8 +996,8 @@ impl InlineAsmClobberAbi {
                 _ => Err(&["C", "system"]),
             },
             InlineAsmArch::LoongArch32 | InlineAsmArch::LoongArch64 => match name {
-                "C" | "system" => Ok(InlineAsmClobberAbi::LoongArch),
-                _ => Err(&["C", "system"]),
+                "C" | "system" | "efiapi" => Ok(InlineAsmClobberAbi::LoongArch),
+                _ => Err(&["C", "system", "efiapi"]),
             },
             InlineAsmArch::PowerPC | InlineAsmArch::PowerPC64 => match name {
                 "C" | "system" => Ok(InlineAsmClobberAbi::PowerPC),

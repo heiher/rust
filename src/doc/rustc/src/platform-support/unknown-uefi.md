@@ -9,6 +9,7 @@ Available targets:
 
 - `aarch64-unknown-uefi`
 - `i686-unknown-uefi`
+- `loongarch64-unknown-uefi`
 - `x86_64-unknown-uefi`
 
 ## Target maintainers
@@ -16,6 +17,7 @@ Available targets:
 - [@dvdhrm](https://github.com/dvdhrm)
 - [@nicholasbishop](https://github.com/nicholasbishop)
 - (for `aarch64-unknown-uefi` only) [@rust-lang/arm-maintainers][arm_maintainers] ([rust@arm.com][arm_email])
+- (for `loongarch64-unknown-uefi` only) [@heiher](https://github.com/heiher)
 
 [arm_maintainers]: https://github.com/rust-lang/team/blob/master/teams/arm-maintainers.toml
 [arm_email]: mailto:rust@arm.com
